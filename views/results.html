@@ -1,0 +1,63 @@
+<div layout="row" class="row-layout" layout-padding layout-wrap layout-fill ng-cloak>
+    <md-whiteframe class="md-whiteframe-1dp" layout layout-align="center center">
+        <md-content layout-padding>
+            <h3>Notes:</h3>
+            <p>The algorithm return a list of targets based on the bliffoscope image provided with an accuracy estimated of
+                {{accuracyThreshold}}% at least. It displays the targets for which a coordinate conflict has been raised
+                since it will provide a better general picture of the current Rejectos attack.
+                <br>The coordinates are shown based on the size of the spaceships on the total bliffoscope image considered starting
+                from the top-left corner of it.
+                <br> The format used for the displaying the coordinates is [top-left, top-right, bottom-left, bottom-right].
+            </p>
+        </md-content>
+    </md-whiteframe>
+</div>
+
+<md-content layout-padding>
+    <h2 ng-if="showResultInfo">
+        Click on the bliffoscope image name to expand its list of targets found
+    </h2>
+
+</md-content>
+
+<md-list>
+    <div ng-repeat="(image, imageInfo) in results track by image">
+        <md-list-item ng-click="toggle[image] = !toggle[image]">
+            <span>
+                <i class="fas fa-angle-right" ng-show="!toggle[image]"></i>
+                <i class="fas fa-angle-down" ng-show="toggle[image]"></i>
+                 <strong>{{image}}</strong> <small>- Rows and columns size: {{imageInfo.rows}} x {{imageInfo.columns}} </small>
+            </span>
+        </md-list-item>
+        <md-list-item ng-show="toggle[image]">
+            <md-content layout-padding>
+                <div ng-if="imageInfo.targets.length == 0"> No targets have been found with the accuracy specified. </div>
+
+                <table style="border-spacing: 20px;" ng-if="imageInfo.targets.length > 0">
+                    <thead>
+                        <tr>
+                            <th class="sr-only"></th>
+                            <th align="center" ng-repeat="(field, _) in imageInfo.targets[0] track by field" flex>
+                                <div> {{::field}} </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="target in imageInfo.targets track by $index">
+                            <td class="sr-only"></td>
+                            <td align="center" ng-repeat="value in target" flex>{{value}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-content>
+        </md-list-item>
+    </div>
+</md-list>
+
+        <div layout="row" class="row-layout" layout-padding layout-wrap layout-fill ng-cloak>
+            <md-whiteframe class="md-whiteframe-1dp" flex-sm="40" flex-gt-sm="30" flex-gt-md="20" layout layout-align="center center">
+                <md-button ng-click="backToInput()"> Run again on a different input! </md-button>
+            </md-whiteframe>
+        </div>
+
+    </div>

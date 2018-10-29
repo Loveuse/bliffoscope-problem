@@ -1,0 +1,85 @@
+<form name="inputForm" ng-submit="submit()">
+
+    <div layout="row" class="row-layout" layout-padding layout-wrap layout-fill ng-cloak>
+        <md-whiteframe class="md-whiteframe-1dp" flex-sm="55" flex-gt-sm="45" flex-gt-md="35" layout layout-align="center center">
+            <md-content layout-padding>
+                <h3> Notes: </h3>
+                <p>Please, insert at least one spaceship and one bliffoscope image. The file size is limited to 10 MB and the
+                    files extensions allowed are .txt and .blf.
+                    <br> Also, make sure that the files contain only '+', spaces and newlines.</p>
+            </md-content>
+        </md-whiteframe>
+    </div>
+
+    <table>
+        <tr>
+            <td valign="top">
+                <div layout="row" class="row-layout" layout-padding layout-wrap layout-fill ng-cloak>
+                    <md-whiteframe class="md-whiteframe-1dp" flex-sm="95" flex-gt-sm="95" flex-gt-md="85" layout layout-align="center center">
+                        <md-content layout-padding style="vertical-align: text-top;">
+                            <h4>Upload spaceships: </h4>
+                            <input type="file" id="spaceships" onchange="angular.element(this).scope().parseFiles(event)" valid-extensions="txt,blf"
+                                multiple required>
+
+                            <div ng-if="spaceships.length > 0">
+                                <h5>Spaceships attached:</h5>
+                            
+                                <div ng-repeat="spaceship in spaceships">
+                                    <span>{{spaceship}}
+                                        <i class="fas fa-times" ng-click="remove(spaceship, 'spaceships')"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </md-content>
+                    </md-whiteframe>
+                </div>
+            </td>
+            <td valign="top">
+                <div layout="row" class="row-layout" layout-padding layout-wrap layout-fill ng-cloak>
+                    <md-whiteframe class="md-whiteframe-1dp" flex-sm="95" flex-gt-sm="95" flex-gt-md="85" layout layout-align="center center">
+                        <md-content layout-padding>
+                            <h4> Upload Bliffoscope Images: </h4>
+                            <input type="file" id="bliffoscopeImages" onchange="angular.element(this).scope().parseFiles(event)" valid-extensions="txt,blf"
+                                multiple required>
+
+                            <div ng-if="bliffoscopeImages.length > 0">
+                                <h5>Bliffoscope images attached: </h5>
+                            
+                                <div ng-repeat="bliffoscopeImage in bliffoscopeImages">
+                                    <span>{{bliffoscopeImage}}
+                                        <i class="fas fa-times" ng-click="remove(bliffoscopeImage, 'bliffoscopeImages')"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <h4 ng-if="irregularBliffoscopeSize">{{irregularBliffoscopeSize}}</h4>
+                        </md-content>
+                    </md-whiteframe>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <md-content ng-if="errorUploadFile">
+        <span>{{errorUploadFile}}
+            <i class="fas fa-times" ng-click="removeError()"></i>
+        </span>
+    </md-content>
+
+    <div layout="row" layout-padding layout-wrap layout-fill ng-cloak>
+        <md-whiteframe class="md-whiteframe-1dp" flex-sm="35" flex-gt-sm="25" flex-gt-md="15" layout layout-align="center center">
+            <md-content layout-padding>
+                <h4> Accuracy% </h4>
+                <input type="text" id="accuracy" ng-model="accuracy" required>
+                <h4 ng-if="fileError">{{fileError}}</h4>
+            </md-content>
+        </md-whiteframe>
+    </div>
+
+
+    <md-content layout-padding>
+        <p>
+            <h4 ng-show="promises.length != 0">Loading input files...</h4>
+            <md-button class="md-raised" type="submit" ng-disabled="promises.length != 0" aria-label="Submit">Submit</md-button>
+        </p>
+    </md-content>
+</form>

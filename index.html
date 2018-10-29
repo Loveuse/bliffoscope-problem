@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.10/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+</head>
+
+<body>
+    <div id="main-wrap" ng-app="bliffoscopeApp"  ng-cloak>
+
+        <div ng-controller="tabController">
+            <md-content class="md-padding">
+                <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                    <div ng-repeat="(tab, route) in tabsRoutes track by $index">
+                    <md-nav-item md-nav-href="{{route}}" aria-label="tab" ng-click="selected(tab)" name="{{tab}}"> {{tab}} </md-nav-item>
+                    </div> 
+                </md-nav-bar>
+            </md-content>
+        </div>
+
+        <md-content id="content" flex layout-padding>
+            <div ng-view></div>
+        </md-content>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.10/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.js"></script>
+
+
+    <!-- TODO: bundlify the dependencies -->
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="services/dataHandler.js"></script>
+    <script type="text/javascript" src="services/parseInput.js"></script>
+    <script type="text/javascript" src="controllers/inputController.js"></script>
+    <script type="text/javascript" src="controllers/processController.js"></script>
+    <script type="text/javascript" src="controllers/tabController.js"></script>
+    <script type="text/javascript" src="utils/Component.js"></script>
+
+</body>
+
+</html>
